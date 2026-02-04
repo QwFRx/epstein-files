@@ -69,6 +69,6 @@ uvicorn backend.main:app --reload
 5. Транзакция: Одновременное списание денег, уменьшение остатков на складе и создание записи заказа.
 
 ## Разработчик
-**Ярослав** — Frontend, UI/UX Engineer (React, TypeScript, Tailwind CSS), Fullstack Developer (Python, Next.js, Docker). Отвечает за интерфейс и пользовательский опыт, занимается интеграцией сервисов и развертыванием приложений.
-**Вовий** — да
-**Иван** — Backend, Lead Developer (FastAPI, Архитектура БД)
+**Ярослав** — Frontend.'/n'
+**Вовий** — Database Engineer.'/n'
+**Иван** — Backend.

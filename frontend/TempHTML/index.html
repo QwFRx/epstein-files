@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>АСУ школьного питания — Вход</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header>
+Автоматизированная система школьного питания
+</header>
+
+<div class="container">
+
+<div class="card">
+<h2>Вход в систему</h2>
+
+<label>Логин</label>
+<input placeholder="username">
+
+<label>Пароль</label>
+<input type="password" placeholder="password">
+
+<label>Роль</label>
+<select>
+<option>Ученик</option>
+<option>Повар</option>
+<option>Администратор</option>
+</select>
+
+<br><br>
+
+<!-- Заглушки переходов -->
+<a href="student.html" class="action">Войти как ученик</a>
+<a href="cook.html" class="action">Войти как повар</a>
+<a href="admin.html" class="action">Войти как администратор</a>
+</div>
+
+<div class="card">
+<h2>Регистрация ученика</h2>
+
+<label>Логин</label>
+<input>
+
+<label>Email</label>
+<input>
+
+<label>Пароль</label>
+<input type="password">
+
+<button class="action">Зарегистрироваться</button>
+</div>
+
+</div>
+
+<footer>
+Только интерфейс. Проверка данных отсутствует.
+</footer>
+
+</body>
+</html>

@@ -69,6 +69,6 @@ uvicorn backend.main:app --reload
 5. Транзакция: Одновременное списание денег, уменьшение остатков на складе и создание записи заказа.
 
 ## Разработчики
-* **Ярослав** — Frontend. /
-* **Вовий** — Database Engineer. /
+* **Ярослав** — Frontend.
+* **Вовий** — Database Engineer.
 * **Иван** — Backend.

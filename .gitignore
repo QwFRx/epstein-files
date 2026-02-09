@@ -1,12 +1,12 @@
-# Скомпилированные файлы
+# --- Скомпилированные файлы Python ---
 **/__pycache__/
 *.py[cod]
 *$py.class
 
-# C-расширения
+# --- Расширения C ---
 *.so
 
-# Виртуальные окружения
+# --- Виртуальные окружения ---
 .venv/
 venv/
 ENV/
@@ -15,7 +15,7 @@ bin/
 lib/
 include/
 
-# Дистрибутивы и пакеты
+# --- Дистрибутивы и пакеты ---
 build/
 develop-eggs/
 dist/
@@ -27,17 +27,38 @@ eggs/
 *.egg
 MANIFEST
 
-# Настройки IDE (PyCharm, VS Code)
+# --- Настройки IDE (PyCharm, VS Code) ---
 .idea/
 .vscode/
+!.vscode/extensions.json
 *.swp
 *.swo
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
 
-# Переменные окружения и секреты (ВАЖНО!)
+# --- Переменные окружения и секреты (НЕ КОММИТИТЬ!) ---
 .env
+.env.local
 .venv
 *.secrets
 
-# Логи и базы данных
+# --- Логи и базы данных ---
 *.log
+logs
 *.sqlite3
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# --- Node.js / Фронтенд ---
+node_modules/
+dist-ssr/
+*.local
+
+# --- Системные файлы ---
+.DS_Store

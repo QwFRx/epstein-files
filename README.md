@@ -47,7 +47,7 @@ python -m backend.seed
 Запустите сервер разработки из корневой директории:
 
 ``` Bash
-uvicorn backend.main:app --reload
+python -m uvicorn backend.main:app --reload
 ```
 После запуска API будет доступно по адресу: http://127.0.0.1:8000
 

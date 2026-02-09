@@ -1,65 +1,64 @@
-import React, { createContext, useState, useEffect } from 'react';
-import { jwtDecode } from "jwt-decode";
+import { createContext, useState, useEffect } from 'react';
 import api from '../api';
 
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-    const [user, setUser] = useState(null);
-    const [loading, setLoading] = useState(true);
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-    useEffect(() => {
-        const token = localStorage.getItem('token');
-        const role = localStorage.getItem('role');
-        const userId = localStorage.getItem('user_id'); // Íóæíî äëÿ çàïðîñîâ
-
-        if (token) {
-            try {
-                const decoded = jwtDecode(token);
-                // Åñëè òîêåí âàëèäåí, âîññòàíàâëèâàåì ñåññèþ
-                setUser({ username: decoded.sub, role: role, id: userId });
-            } catch (e) {
-                localStorage.clear();
-            }
+  // ÐŸÑ€Ð¾Ð²ÐµÑ€ÐºÐ° Ñ‚Ð¾ÐºÐµÐ½Ð° Ð¿Ñ€Ð¸ Ð·Ð°Ð³Ñ€ÑƒÐ·ÐºÐµ ÑÑ‚Ñ€Ð°Ð½Ð¸Ñ†Ñ‹
+  useEffect(() => {
+    const checkUser = async () => {
+      const token = localStorage.getItem('token');
+      if (token) {
+        try {
+          // Ð—Ð°Ð¿Ñ€Ð°ÑˆÐ¸Ð²Ð°ÐµÐ¼ Ð´Ð°Ð½Ð½Ñ‹Ðµ Ð¾ ÑÐµÐ±Ðµ (Ð½ÑƒÐ¶ÐµÐ½ ÑÐ½Ð´Ð¿Ð¾Ð¸Ð½Ñ‚ /users/me, ÐµÑÐ»Ð¸ ÐµÐ³Ð¾ Ð½ÐµÑ‚ - Ð¸ÑÐ¿Ð¾Ð»ÑŒÐ·ÑƒÐµÐ¼ ÐºÐ¾ÑÑ‚Ñ‹Ð»ÑŒ Ð¸Ð»Ð¸ Ð´ÐµÐºÐ¾Ð´)
+          // Ð’ Ñ‚Ð²Ð¾ÐµÐ¼ ÐºÐ¾Ð´Ðµ orders.py Ð¸ÑÐ¿Ð¾Ð»ÑŒÐ·ÑƒÐµÑ‚ get_current_user, Ñ‚Ð°Ðº Ñ‡Ñ‚Ð¾ Ñ‚Ð¾ÐºÐµÐ½ Ð²Ð°Ð»Ð¸Ð´ÐµÐ½.
+          // Ð”Ð»Ñ Ð¿Ñ€Ð¾ÑÑ‚Ð¾Ñ‚Ñ‹ ÑÐ¾Ñ…Ñ€Ð°Ð½Ð¸Ð¼ Ð¸Ð¼Ñ Ð¿Ð¾Ð»ÑŒÐ·Ð¾Ð²Ð°Ñ‚ÐµÐ»Ñ Ð² localStorage Ð¿Ñ€Ð¸ Ð»Ð¾Ð³Ð¸Ð½Ðµ.
+          const storedUser = localStorage.getItem('username');
+          const storedRole = localStorage.getItem('role');
+          if (storedUser) setUser({ username: storedUser, role: storedRole });
+        } catch (error) {
+          logout();
         }
-        setLoading(false);
-    }, []);
-
-    const login = async (username, password) => {
-        const formData = new FormData();
-        formData.append('username', username);
-        formData.append('password', password);
-
-        const response = await api.post('/auth/login', formData);
-        const { access_token } = response.data;
-
-        // Äåêîäèðóåì òîêåí (õîòÿ ðîëü ëó÷øå ïîëó÷àòü îòäåëüíûì çàïðîñîì /users/me)
-        // Äëÿ õàêàòîíà áåðåì ðîëü ñ áýêà, åñëè îíà òàì åñòü, èëè îïðåäåëÿåì "íà ãëàç"
-        // ÂÍÈÌÀÍÈÅ: Äëÿ ïîëíîöåííîé ðàáîòû äîáàâü endpoint GET /auth/me â backend!
-        // Ïîêà ñäåëàåì óïðîùåííóþ ëîãèêó îïðåäåëåíèÿ ðîëè ïî ëîãèíó (äëÿ òåñòà):
-        let role = "student";
-        let id = 2; // Õàðäêîä ID, åñëè áýê íå âîçâðàùàåò ID ïðè ëîãèíå. 
-        // ÂÀÆÍÎ: Èñïðàâü backend, ÷òîáû /login âîçâðàùàë user_id è role
-
-        if (username === "admin") { role = "admin"; id = 1; }
-        else if (username === "cook") { role = "cook"; id = 3; }
-
-        localStorage.setItem('token', access_token);
-        localStorage.setItem('role', role);
-        localStorage.setItem('user_id', id);
-
-        setUser({ username, role, id });
-        return role;
+      }
+      setLoading(false);
     };
+    checkUser();
+  }, []);
 
-    const logout = () => {
-        localStorage.clear();
-        setUser(null);
-    };
+  const login = async (username, password) => {
+    // FastAPI Ð¾Ð¶Ð¸Ð´Ð°ÐµÑ‚ x-www-form-urlencoded
+    const params = new URLSearchParams();
+    params.append('username', username);
+    params.append('password', password);
 
-    return (
-        <AuthContext.Provider value={{ user, login, logout, loading }}>
-            {children}
-        </AuthContext.Provider>
-    );
+    const response = await api.post('/auth/login', params);
+    const { access_token } = response.data;
+
+    localStorage.setItem('token', access_token);
+    
+    // Ð’ Ñ€ÐµÐ°Ð»ÑŒÐ½Ð¾Ð¼ Ð¿Ñ€Ð¾ÐµÐºÑ‚Ðµ Ñ‚ÑƒÑ‚ Ð»ÑƒÑ‡ÑˆÐµ ÑÐ´ÐµÐ»Ð°Ñ‚ÑŒ Ð·Ð°Ð¿Ñ€Ð¾Ñ Ð·Ð° Ð¿Ñ€Ð¾Ñ„Ð¸Ð»ÐµÐ¼ Ð¿Ð¾Ð»ÑŒÐ·Ð¾Ð²Ð°Ñ‚ÐµÐ»Ñ
+    // ÐÐ¾ Ð´Ð»Ñ ÑÐºÐ¾Ñ€Ð¾ÑÑ‚Ð¸ Ð·Ð°Ð¿Ð¸ÑˆÐµÐ¼ Ð¸Ð¼Ñ, ÐºÐ¾Ñ‚Ð¾Ñ€Ð¾Ðµ Ð²Ð²ÐµÐ»Ð¸
+    localStorage.setItem('username', username); 
+    // ÐŸÑ€ÐµÐ´Ð¿Ð¾Ð»Ð¾Ð¶Ð¸Ð¼ Ñ€Ð¾Ð»ÑŒ Ð¿Ð¾ Ð»Ð¾Ð³Ð¸Ð½Ñƒ (Ð´Ð»Ñ Ð´ÐµÐ¼Ð¾), Ð² Ð¸Ð´ÐµÐ°Ð»Ðµ Ð±ÑÐº Ð´Ð¾Ð»Ð¶ÐµÐ½ Ð²Ð¾Ð·Ð²Ñ€Ð°Ñ‰Ð°Ñ‚ÑŒ Ñ€Ð¾Ð»ÑŒ Ð² login response
+    const role = username === 'admin' ? 'admin' : 'student';
+    localStorage.setItem('role', role);
+
+    setUser({ username, role });
+  };
+
+  const logout = () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('username');
+    localStorage.removeItem('role');
+    setUser(null);
+  };
+
+  return (
+    <AuthContext.Provider value={{ user, login, logout, loading }}>
+      {children}
+    </AuthContext.Provider>
+  );
 };

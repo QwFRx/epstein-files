@@ -1,2 +1,43 @@
-.vs
-__pycache__
+# Скомпилированные файлы
+**/__pycache__/
+*.py[cod]
+*$py.class
+
+# C-расширения
+*.so
+
+# Виртуальные окружения
+.venv/
+venv/
+ENV/
+env/
+bin/
+lib/
+include/
+
+# Дистрибутивы и пакеты
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Настройки IDE (PyCharm, VS Code)
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Переменные окружения и секреты (ВАЖНО!)
+.env
+.venv
+*.secrets
+
+# Логи и базы данных
+*.log
+*.sqlite3

@@ -148,9 +148,7 @@ cd frontend
 2. Установить зависимости:
 
 ```bash
-npm ci
-# или
-npm install
+npm install axios lucide-react clsx tailwind-merge
 ```
 
 3. Запустить dev-сервер:

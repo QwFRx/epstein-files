@@ -6,16 +6,25 @@ from backend.database import get_db
 
 router = APIRouter(prefix="/reviews", tags=["Reviews"])
 
+# backend/routers/reviews.py
+
 @router.post("/", response_model=schemas.ReviewOut)
 def create_review(review: schemas.ReviewCreate, user_id: int, db: Session = Depends(get_db)):
-    """Оставить отзыв о блюде (ТЗ: пункт 1)"""
-    
-    # Проверяем, существует ли блюдо
-    item = db.query(models.MenuItem).filter(models.MenuItem.id == review.menu_item_id).first()
-    if not item:
-        raise HTTPException(status_code=404, detail="Блюдо не найдено")
+    # ... существующая проверка на наличие блюда ...
 
-    # Проверяем, заказывал ли пользователь это блюдо (логично оставлять отзыв только о том, что ел)
+    # 1. ПРОВЕРКА: Оставлял ли пользователь отзыв на это блюдо ранее?
+    existing_review = db.query(models.Review).filter(
+        models.Review.user_id == user_id,
+        models.Review.menu_item_id == review.menu_item_id
+    ).first()
+    
+    if existing_review:
+        raise HTTPException(
+            status_code=400, 
+            detail="Вы уже оставляли отзыв об этом блюде"
+        )
+
+    # 2. ПРОВЕРКА: Заказывал и получал ли он его?
     order = db.query(models.Order).filter(
         models.Order.user_id == user_id, 
         models.Order.menu_item_id == review.menu_item_id,
@@ -23,7 +32,7 @@ def create_review(review: schemas.ReviewCreate, user_id: int, db: Session = Depe
     ).first()
     
     if not order:
-        raise HTTPException(status_code=400, detail="Вы не можете оставить отзыв о блюде, которое еще не получили")
+        raise HTTPException(status_code=400, detail="Сначала нужно получить это блюдо")
 
     db_review = models.Review(
         user_id=user_id,

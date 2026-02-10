@@ -108,7 +108,7 @@ python -m venv .venv
 # Linux / macOS
 source .venv/bin/activate
 # Windows
-.venv\Scripts\Activate.ps1
+.venv\Scripts\Activate
 ```
 
 3. Установить зависимости:
@@ -121,8 +121,6 @@ pip install -r requirements.txt
 
 ```bash
 python -m backend.seed
-# или
-python backend/seed.py
 ```
 
 5. Запустить сервер:

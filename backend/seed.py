@@ -13,7 +13,7 @@ def seed_data():
     admin = models.User(username="admin", password_hash=get_password_hash("password123"), role="admin", balance=1000000000000)
     cook = models.User(username="cook", password_hash=get_password_hash("password123"), role="cook", balance=0)
     student = models.User(username="student", password_hash=get_password_hash("password123"), role="student", balance=1000.0, food_preferences="аллергия на орехи")
-    db.add_all([admin, student])
+    db.add_all([admin, student, cook])
     db.commit()
 
     # 2. Ингредиенты на складе

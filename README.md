@@ -202,6 +202,7 @@ serve -s dist
 (создаются в `seed.py`)
 
 * **Студент:** `student` / `password123`
+* **Повар:** `cook` / `password123`
 * **Админ:** `admin` / `password123`
 
 ⚠️ Используйте только для разработки.

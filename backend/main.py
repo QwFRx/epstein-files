@@ -4,7 +4,6 @@ from backend.routers import auth, menu, orders, admin, reviews
 
 app = FastAPI(title="School Canteen API")
 
-# НАСТРОЙКА CORS (Чтобы фронтенд не блокировался)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"], # В продакшене замени на ["http://localhost:5173"]

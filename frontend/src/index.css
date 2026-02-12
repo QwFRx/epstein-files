@@ -1,26 +1,17 @@
-/* index.css */
-
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
-
-  /* Настройка цветовой схемы, чтобы браузер не навязывал свои отступы */
   color-scheme: light dark;
-  
-  /* Переменные для сброса */
   margin: 0;
   padding: 0;
 }
 
-/* Полный сброс для html и body */
 html, body {
   margin: 0 !important;
   padding: 0 !important;
   width: 100%;
   min-height: 100vh;
-  /* Убираем центрирование из стандартного шаблона Vite, 
-     которое создает ту самую полосу/сдвиг */
   display: block; 
   overflow-x: hidden;
 }
@@ -31,12 +22,10 @@ html, body {
   padding: 0;
 }
 
-/* Базовый сброс для всех элементов */
 * {
   box-sizing: border-box;
 }
 
-/* Стандартные стили для ссылок (можно оставить или убрать) */
 a {
   font-weight: 500;
   color: #646cff;
@@ -47,7 +36,6 @@ a:hover {
   color: #535bf2;
 }
 
-/* Убираем лишние отступы у заголовков, которые могут "толкать" контейнер вниз */
 h1, h2, h3, h4, h5, h6 {
   margin: 0;
 }

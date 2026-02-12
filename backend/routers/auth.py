@@ -8,7 +8,7 @@ from backend import models, schemas, database
 
 SECRET_KEY = "SUPER_SECRET_KEY_FOR_SCHOOL_PROJECT"
 ALGORITHM = "HS256"
-ACCESS_TOKEN_EXPIRE_MINUTES = 1440 # 24 часа
+ACCESS_TOKEN_EXPIRE_MINUTES = 1440
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="auth/login")
@@ -27,7 +27,6 @@ def create_access_token(data: dict):
     to_encode.update({"exp": expire})
     return jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
 
-# Функция получения текущего пользователя из токена
 def get_current_user(token: str = Depends(oauth2_scheme), db: Session = Depends(database.get_db)):
     credentials_exception = HTTPException(
         status_code=status.HTTP_401_UNAUTHORIZED,
@@ -56,9 +55,9 @@ def register(user: schemas.UserCreate, db: Session = Depends(database.get_db)):
         username=user.username,
         password_hash=get_password_hash(user.password),
         email=user.email,
-        role=user.role, # Роль теперь берется из запроса админа
+        role=user.role,
         food_preferences=user.food_preferences,
-        balance=0.0 if user.role != "student" else 100.0 # Поварам баланс не нужен
+        balance=0.0 if user.role != "student" else 100.0
     )
     db.add(new_user)
     db.commit()
@@ -74,7 +73,6 @@ def login(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depend
     access_token = create_access_token(data={"sub": user.username})
     return {"access_token": access_token, "token_type": "bearer"}
 
-# КРИТИЧЕСКИ ВАЖНЫЙ ЭНДПОИНТ ДЛЯ АДМИНКИ
 @router.get("/me", response_model=schemas.UserOut)
 def read_users_me(current_user: models.User = Depends(get_current_user)):
     return current_user

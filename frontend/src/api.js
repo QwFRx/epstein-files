@@ -12,7 +12,6 @@ api.interceptors.request.use((config) => {
     return config;
 });
 
-// Внутри src/api.js
 export const authApi = {
     login: (username, password) => {
         const formData = new URLSearchParams();
@@ -21,12 +20,11 @@ export const authApi = {
         return api.post('/auth/login', formData);
     },
     register: (data) => api.post('/auth/register', data),
-    getMe: () => api.get('/auth/me'), // Добавьте это!
+    getMe: () => api.get('/auth/me'),
 };
 
 export const menuApi = {
     getMenu: (meal_type) => api.get(`/menu/?meal_type=${meal_type || ''}`),
-    // Добавление блюда (Повар/Админ)
     addMenuItem: (data) => api.post('/menu/', data),
 };
 
@@ -39,9 +37,6 @@ export const orderApi = {
         }),
     getMyOrders: (userId) => api.get(`/orders/my?user_id=${userId}`),
     receiveOrder: (orderId) => api.patch(`/orders/${orderId}/receive`),
-    // Для повара: получить все заказы (потребуется небольшая доработка бэкенда, 
-    // но пока используем имитацию или запрос всех, если бэк позволяет)
-    // В данном примере повар будет выдавать заказ по ID.
 };
 
 export const reviewApi = {
@@ -50,15 +45,10 @@ export const reviewApi = {
 };
 
 export const adminApi = {
-    // Инвентарь
     getInventory: () => api.get('/admin/inventory'),
     updateInventory: (itemId, quantity) => api.put(`/admin/inventory/${itemId}?quantity=${quantity}`),
-    
-    // Закупки
     getRequests: (status) => api.get(`/admin/purchase-requests${status ? `?status=${status}` : ''}`),
     approveRequest: (reqId, adminId) => api.patch(`/admin/purchase-requests/${reqId}/approve?admin_id=${adminId}`),
-    
-    // Статистика
     getDailyReport: (date) => api.get(`/admin/stats/daily-report?day=${date}`),
     getAttendance: () => api.get('/admin/stats/attendance'),
 };

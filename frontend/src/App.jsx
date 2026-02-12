@@ -66,9 +66,6 @@ export default function App() {
   );
 }
 
-// ==========================================
-// 🔐 ЭКРАН АВТОРИЗАЦИИ
-// ==========================================
 function AuthScreen({ setToken, setUser }) {
   const [isRegister, setIsRegister] = useState(false);
   const [formData, setFormData] = useState({ username: '', password: '', email: '', food_preferences: '' });
@@ -142,9 +139,6 @@ function AuthScreen({ setToken, setUser }) {
   );
 }
 
-// ==========================================
-// 🎓 ПАНЕЛЬ УЧЕНИКА
-// ==========================================
 function StudentDashboard({ user, setUser }) {
   const [view, setView] = useState('menu');
   return (

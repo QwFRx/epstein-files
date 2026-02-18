@@ -6,7 +6,7 @@ app = FastAPI(title="School Canteen API")
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"], # В продакшене замени на ["http://localhost:5173"]
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

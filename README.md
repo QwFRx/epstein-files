@@ -53,36 +53,6 @@
 
 ---
 
-## 📁 Структура проекта
-
-```
-
-epstein-files/
-├── backend/
-│ ├── routers/
-│ ├── models.py
-│ ├── schemas.py
-│ ├── database.py
-│ ├── main.py
-│ ├── seed.py
-│ ├── canteen.db
-│ └── requirements.txt
-└── frontend/
-├── index.html
-├── package.json
-├── package-lock.json
-├── vite.config.js
-└── src/
-├── main.jsx
-├── App.jsx
-├── api.js
-├── components/
-└── context/
-
-````
-
----
-
 ## ⚙️ Требования
 
 - Node.js **18+** (рекомендуется 18 или 20)

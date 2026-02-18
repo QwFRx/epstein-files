@@ -1,5 +1,3 @@
-/* src/App.css */
-
 :root {
   --primary-color: #4f46e5;
   --primary-hover: #4338ca;
@@ -13,8 +11,6 @@
   --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
 }
 
-/* Базовые настройки страницы */
-/* App.css */
 * {
   margin: 0;
   padding: 0;
@@ -24,7 +20,7 @@
 body, html {
   margin: 0 !important;
   padding: 0 !important;
-  overflow-x: hidden; /* Уберет возможную горизонтальную полосу прокрутки */
+  overflow-x: hidden;
 }
 
 body, html {
@@ -37,21 +33,19 @@ body, html {
   color: var(--text-main);
 }
 
-/* Главный оберточный контейнер React */
 #root {
   width: 100%;
   display: flex;
-  justify-content: center; /* Центрируем всё приложение */
+  justify-content: center;
 }
 
 .app {
   width: 100%;
   display: flex;
   flex-direction: column;
-  align-items: center; /* Центрируем Navbar и Main контент */
+  align-items: center;
 }
 
-/* --- НАВИГАЦИЯ --- */
 .navbar {
   width: 100%;
   background-color: var(--primary-color);
@@ -66,7 +60,7 @@ body, html {
 
 .navbar-content {
   width: 100%;
-  max-width: 1000px; /* Ограничиваем ширину для фокуса */
+  max-width: 1000px;
   padding: 0.75rem 1.5rem;
   display: flex;
   justify-content: space-between;
@@ -108,17 +102,15 @@ body, html {
 
 .btn-logout:hover { opacity: 1; transform: scale(1.1); }
 
-/* --- ОСНОВНОЙ КОНТЕНТ --- */
 .container {
   width: 100%;
   max-width: 1000px;
   padding: 2rem 1.5rem;
   display: flex;
   flex-direction: column;
-  align-items: center; /* Центрируем содержимое внутри */
+  align-items: center;
 }
 
-/* Фильтры и переключатели */
 .meal-filter {
   display: flex;
   justify-content: center;
@@ -129,7 +121,6 @@ body, html {
   border-radius: 12px;
 }
 
-/* --- КНОПКИ --- */
 .btn {
   padding: 0.6rem 1.2rem;
   border-radius: 8px;
@@ -161,7 +152,6 @@ body, html {
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
-/* --- СЕТКА МЕНЮ --- */
 .menu-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -204,7 +194,6 @@ body, html {
 .card-price { font-weight: 700; color: var(--primary-color); font-size: 1.1rem; }
 .card-desc { color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 1.5rem; min-height: 2.7rem; }
 
-/* --- ЗАКАЗЫ --- */
 .orders-list {
   width: 100%;
   max-width: 700px;
@@ -223,7 +212,6 @@ body, html {
   box-shadow: var(--shadow);
 }
 
-/* --- МОДАЛЬНОЕ ОКНО --- */
 .modal-overlay {
   position: fixed;
   inset: 0;
@@ -255,7 +243,6 @@ body, html {
 
 .star-btn.active { color: var(--warning); }
 
-/* --- АВТОРИЗАЦИЯ --- */
 .auth-container {
   min-height: 100vh;
   display: flex;

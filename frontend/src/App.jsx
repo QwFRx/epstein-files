@@ -230,9 +230,6 @@ function StudentOrders({ user }) {
   );
 }
 
-// ==========================================
-// 👨‍🍳 ПАНЕЛЬ ПОВАРА
-// ==========================================
 function CookDashboard() {
   const [tab, setTab] = useState('kitchen');
   return (
@@ -305,9 +302,6 @@ function CookMenuView() {
   );
 }
 
-// ==========================================
-// 👑 ПАНЕЛЬ АДМИНИСТРАТОРА
-// ==========================================
 function AdminDashboard({ user }) {
   const [tab, setTab] = useState('stats');
   return (
@@ -329,7 +323,6 @@ function AdminDashboard({ user }) {
 function AdminStatsView() {
   const [stats, setStats] = useState(null);
   
-  // ИСПРАВЛЕНО: добавлен [] массив зависимостей
   useEffect(() => {
     const today = new Date().toISOString().split('T')[0];
     adminApi.getDailyReport(today).then(res => setStats(res.data));
@@ -405,7 +398,6 @@ function AdminInventoryView({ role }) {
     adminApi.getInventory().then(res => setInventory(res.data));
   };
 
-  // ИСПРАВЛЕНО: добавлен [] массив зависимостей
   useEffect(() => {
     fetchInventory();
   }, []);
@@ -415,7 +407,7 @@ function AdminInventoryView({ role }) {
     const val = prompt("Новое количество:", currentQty);
     if (val !== null) {
       await adminApi.updateInventory(id, parseFloat(val));
-      fetchInventory(); // Обновляем данные без перезагрузки всей страницы
+      fetchInventory();
     }
   };
 
@@ -438,7 +430,6 @@ function AdminInventoryView({ role }) {
 function AdminRequestsView({ user }) {
   const [requests, setRequests] = useState([]);
   
-  // ИСПРАВЛЕНО: добавлен [] массив зависимостей
   useEffect(() => {
     adminApi.getRequests('pending').then(res => setRequests(res.data));
   }, []);
